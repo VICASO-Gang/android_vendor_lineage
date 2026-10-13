@@ -6,6 +6,9 @@ $(call inherit-product-if-exists, packages/apps/ViPER4AndroidFX/config.mk)
 endif
 include vendor/lineage/audio/config.mk
 
+# Allow vendor prebuilt repos to exclude themselves from bp scanning
+-include $(sort $(wildcard vendor/*/*/exclude-bp.mk))
+
 PRODUCT_BRAND ?= AxionOS
 
 ifeq ($(PRODUCT_GMS_CLIENTID_BASE),)
@@ -131,11 +134,8 @@ endif
 TARGET_SCREEN_WIDTH ?= 1080
 TARGET_SCREEN_HEIGHT ?= 1920
 PRODUCT_PACKAGES += \
-    bootanimation.zip
-
-# Build Manifest
-PRODUCT_PACKAGES += \
-    build-manifest
+    bootanimation.zip \
+    bootanimation-dark.zip
 
 # Lineage packages
 TARGET_INCLUDES_LOS_PREBUILTS ?= false
