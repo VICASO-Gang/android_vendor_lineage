@@ -1,6 +1,15 @@
 PRODUCT_VERSION_MAJOR = 1
 PRODUCT_VERSION_MINOR = 6
-PRODUCT_RELEASE_TYPE = FINAL
+
+ifeq (,$(filter OUT,$(PLATFORM_SECURITY_PATCH)))
+  _patch_year := $(shell echo $(PLATFORM_SECURITY_PATCH) | cut -d- -f1 | cut -c3-4)
+  _patch_month := $(shell echo $(PLATFORM_SECURITY_PATCH) | cut -d- -f2)
+  _month_names := JAN FEB MAR APR MAY JUN JUL AUG SEP OCT NOV DEC
+  _month_abbrev := $(word $(_patch_month),$(_month_names))
+  PRODUCT_RELEASE_TYPE := $(_month_abbrev)$(_patch_year)
+else
+  PRODUCT_RELEASE_TYPE := FINAL
+endif
 
 LINEAGE_BUILDTYPE := VICASO
 
