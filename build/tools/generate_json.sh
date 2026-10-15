@@ -15,21 +15,16 @@ PRODUCT_OUT=$2
 LINEAGE_ZIP=$3
 FILENAME="axion-$LINEAGE_ZIP"
 
-if [[ "$FILENAME" =~ axion-.*-(COMMUNITY|OFFICIAL|UNOFFICIAL)-.*\.zip ]]; then
-    ROMTYPE="${BASH_REMATCH[1]}"
-else
-    echo "Error: Unable to extract ROM type from filename: $FILENAME"
-    exit 1
-fi
+ROMTYPE="VICASO"
 
-if [[ "$FILENAME" =~ axion-([0-9\.]+)(-[A-Za-z]+)?-[0-9]+-$ROMTYPE-.*\.zip ]]; then
+if [[ "$FILENAME" =~ axion-([0-9\.]+)-[A-Z]{3}[0-9]{2}-[0-9]{8}-[A-Za-z0-9]+-(GMS|VANILLA)-.*\.zip ]]; then
     VERSION="${BASH_REMATCH[1]}"
 else
     echo "Error: Unable to extract version from filename: $FILENAME"
     exit 1
 fi
 
-if [[ "$FILENAME" =~ axion-.*-$ROMTYPE-(GMS|VANILLA)-.*\.zip ]]; then
+if [[ "$FILENAME" =~ axion-.*-(GMS|VANILLA)-.*\.zip ]]; then
     FLAVOR="${BASH_REMATCH[1]}"
 else
     echo "Error: Unable to extract build flavor from filename: $FILENAME"
